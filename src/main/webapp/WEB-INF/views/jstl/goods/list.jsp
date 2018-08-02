@@ -5,11 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<c:url value="/styles/main.css"/>"  type="text/css" rel="stylesheet" />
-<title>商品管理</title>
+<title>商品管理-0312</title>
 </head>
 <body>
     <div class="main">
-        <h2 class="title"><span>商品管理</span></h2>
+        <h2 class="title"><span>商品管理-0312</span></h2>
         <form action="deletes" method="post">
         <table border="1" width="100%" class="tab">
             <tr>
