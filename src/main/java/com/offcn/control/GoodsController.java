@@ -26,11 +26,12 @@ import com.offcn.service.GoodsService;
 @RequestMapping("/goods")
 public class GoodsController {
     //******************************************
+    //########
     @Resource
     GoodsService goodsService;
     
     /*
-     * ²úÆ·ÁĞ±íÓë·ÖÒ³Action
+     * äº§å“åˆ—è¡¨ä¸åˆ†é¡µAction
      */
     @RequestMapping("/list")
     public String list(Model model,@RequestParam(required=false,defaultValue="1") int pageNO){
@@ -43,37 +44,37 @@ public class GoodsController {
         return "goods/list";
     }
     /*
-     * É¾³ıµ¥¸ö²úÆ·¶ÔÏóAction
+     * åˆ é™¤å•ä¸ªäº§å“å¯¹è±¡Action
      */
     @RequestMapping("/delete/{id}")
     public String delete(Model model,@PathVariable int id,@RequestParam(required=false,defaultValue="1") int pageNO,RedirectAttributes redirectAttributes){
         if(goodsService.delete(id)>0)
         {
-            redirectAttributes.addFlashAttribute("message", "É¾³ı³É¹¦£¡");
+            redirectAttributes.addFlashAttribute("message", "åˆ é™¤æˆåŠŸï¼");
         }else{
-            redirectAttributes.addFlashAttribute("message", "É¾³ı³É¹¦£¡");
+            redirectAttributes.addFlashAttribute("message", "åˆ é™¤æˆåŠŸï¼");
         }
         return "redirect:/goods/list?pageNO="+pageNO;
     }
     
     /*
-     * É¾³ı¶à¸ö²úÆ·¶ÔÏóAction
+     * åˆ é™¤å¤šä¸ªäº§å“å¯¹è±¡Action
      */
     @RequestMapping("/deletes")
     public String deletes(Model model,@RequestParam int[] id,@RequestParam(required=false,defaultValue="1") int pageNO,RedirectAttributes redirectAttributes){
-        //Ö´ĞĞÉ¾³ı
+        //æ‰§è¡Œåˆ é™¤
         int rows=goodsService.deletes(id);
         if(rows>0)
         {
-            redirectAttributes.addFlashAttribute("message", "É¾³ı"+rows+"ĞĞ¼ÇÂ¼³É¹¦£¡");
+            redirectAttributes.addFlashAttribute("message", "åˆ é™¤"+rows+"è¡Œè®°å½•æˆåŠŸï¼");
         }else{
-            redirectAttributes.addFlashAttribute("message", "É¾³ı³É¹¦£¡");
+            redirectAttributes.addFlashAttribute("message", "åˆ é™¤æˆåŠŸï¼");
         }
         return "redirect:/goods/list?pageNO="+pageNO;
     }
     
     /*
-     * Ìí¼ÓÉÌÆ·
+     * æ·»åŠ å•†å“
      */
     @RequestMapping("/add")
     public String add(Model model){
@@ -82,11 +83,11 @@ public class GoodsController {
     }
     
     /*
-     * Ìí¼ÓÉÌÆ·±£´æ
+     * æ·»åŠ å•†å“ä¿å­˜
      */
     @RequestMapping("/addSave")
     public String addSave(Model model,@ModelAttribute("entity") @Valid Goods entity,BindingResult bindingResult){
-        //Èç¹ûÄ£ĞÍÖĞ´æÔÚ´íÎó
+        //å¦‚æœæ¨¡å‹ä¸­å­˜åœ¨é”™è¯¯
         if(bindingResult.hasErrors()){
         	 model.addAttribute("entity", entity);
              return "goods/add";
@@ -101,7 +102,7 @@ public class GoodsController {
     }
     
     /*
-     * ±à¼­ÉÌÆ·
+     * ç¼–è¾‘å•†å“
      */
     @RequestMapping("/edit/{id}")
     public String edit(Model model,@PathVariable int id){
@@ -110,11 +111,11 @@ public class GoodsController {
     }
     
     /*
-     * ±à¼­ÉÌÆ·±£´æ
+     * ç¼–è¾‘å•†å“ä¿å­˜
      */
     @RequestMapping("/editSave")
     public String editSave(Model model,@ModelAttribute("entity") @Valid Goods entity,BindingResult bindingResult){
-        //Èç¹ûÄ£ĞÍÖĞ´æÔÚ´íÎó
+        //å¦‚æœæ¨¡å‹ä¸­å­˜åœ¨é”™è¯¯
         if(bindingResult.hasErrors()){
         	 model.addAttribute("entity", entity);
              return "/goods/edit";
@@ -129,7 +130,7 @@ public class GoodsController {
     }
     
     /**
-     * ÉÏ´«Í¼Æ¬
+     * ä¸Šä¼ å›¾ç‰‡
      */
     @RequestMapping("/upPicture/{id}")
     public String upPicture(Model model,@PathVariable int id){
@@ -138,27 +139,27 @@ public class GoodsController {
     }
     
     /*
-     * ÉÏ´«Í¼Æ¬±£´æ
+     * ä¸Šä¼ å›¾ç‰‡ä¿å­˜
      */
     @RequestMapping("/upPictureSave/{id}")
     public String upPictureSave(Model model,@PathVariable int id,MultipartFile picFile,HttpServletRequest request){
         Goods entity=goodsService.getGoodsById(id);
-        //Èç¹ûÑ¡ÔñÁËÎÄ¼ş
+        //å¦‚æœé€‰æ‹©äº†æ–‡ä»¶
         if(picFile!=null){ 
-            //Èç¹ûÎÄ¼ş´óĞ¡²»Îª0
+            //å¦‚æœæ–‡ä»¶å¤§å°ä¸ä¸º0
             if(picFile.getSize()>0){
-                //»ñµÃÉÏ´«Î»ÖÃ
+                //è·å¾—ä¸Šä¼ ä½ç½®
                 String path=request.getServletContext().getRealPath("/images");
-                //Éú³ÉÎÄ¼şÃû
+                //ç”Ÿæˆæ–‡ä»¶å
                 String filename=UUID.randomUUID().toString()+picFile.getOriginalFilename().substring(picFile.getOriginalFilename().lastIndexOf("."));
                 File tempFile=new File(path, filename);
                 try {
-                    //±£´æÎÄ¼ş
+                    //ä¿å­˜æ–‡ä»¶
                     picFile.transferTo(tempFile);
-                    //¸üĞÂÊı¾İ
+                    //æ›´æ–°æ•°æ®
                     entity.setPicture(filename);
                     goodsService.update(entity);
-                    //×ªÏòÁĞ±íÒ³
+                    //è½¬å‘åˆ—è¡¨é¡µ
                     return "redirect:/goods/list";    
                 } catch (Exception e) {
                     e.printStackTrace();
