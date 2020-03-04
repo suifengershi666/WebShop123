@@ -25,8 +25,7 @@ import com.offcn.service.GoodsService;
 @Controller
 @RequestMapping("/goods")
 public class GoodsController {
-    //******************************************
-    //########
+    
     @Resource
     GoodsService goodsService;
     
